@@ -4,8 +4,9 @@ import 'package:hkbp_app/components/background.dart';
 import 'package:hkbp_app/components/rounded_btn.dart';
 import 'package:hkbp_app/fontstyle.dart';
 import 'package:hkbp_app/screens/menu/persembahan/pembayaran/pin_pembayaran.dart';
+import 'package:intl/intl.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final dynamic dataTheme;
   final Widget child;
 
@@ -14,6 +15,18 @@ class Body extends StatelessWidget {
     this.dataTheme,
     required this.child,
   }) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  final _inputNominal = TextEditingController();
+  static const _locale = 'en_US';
+  String _formatNumber(String s) =>
+      NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  String get _currency =>
+      NumberFormat.compactSimpleCurrency(locale: "id").currencySymbol;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +67,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   //theme
-                  Theme(data: dataTheme, child: child),
+                  Theme(data: widget.dataTheme, child: widget.child),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -81,18 +94,35 @@ class Body extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: SizedBox(
                                 height: 33,
-                                child: TextField(
-                                  style: txtR12d,
-                                  decoration: InputDecoration(
-                                    hintText: "Rp.0",
-                                    hintStyle: GoogleFonts.inter(
-                                      color: const Color(0xffCACACA),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 0, bottom: 2),
+                                  child: TextField(
+                                    style: txtR12d,
+                                    decoration: InputDecoration(
+                                      hintText: "0",
+                                      hintStyle: txtR12l,
+                                      prefixIcon: Text(
+                                        _currency + ".",
+                                        style: txtR12l,
+                                      ),
+                                      prefixIconConstraints:
+                                          const BoxConstraints(
+                                              minWidth: 0, minHeight: 0),
+                                      border: InputBorder.none,
                                     ),
-                                    border: InputBorder.none,
+                                    controller: _inputNominal,
+                                    onChanged: (string) {
+                                      string = _formatNumber(
+                                          string.replaceAll(",", ""));
+                                      _inputNominal.value = TextEditingValue(
+                                        text: string,
+                                        selection: TextSelection.collapsed(
+                                            offset: string.length),
+                                      );
+                                    },
+                                    keyboardType: TextInputType.number,
                                   ),
-                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                             ),

@@ -13,10 +13,10 @@ class Kitab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 55,
+          height: 50,
           child: Padding(
             padding:
-                const EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 5),
+                const EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 0),
             child: TextField(
               style: txtR12d,
               decoration: InputDecoration(

@@ -18,11 +18,11 @@ class BodyRincianDonasi extends StatefulWidget {
 
 class _BodyRincianDonasiState extends State<BodyRincianDonasi> {
   final _inputDonasi = TextEditingController();
-  static const _locale = 'id';
-  // String _formatNumber(String s) =>
-  //     NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  static const _locale = 'en_US';
+  String _formatNumber(String s) =>
+      NumberFormat.decimalPattern(_locale).format(int.parse(s));
   String get _currency =>
-      NumberFormat.compactSimpleCurrency(locale: _locale).currencySymbol;
+      NumberFormat.compactSimpleCurrency(locale: 'id').currencySymbol;
 
   @override
   Widget build(BuildContext context) {
@@ -206,17 +206,35 @@ class _BodyRincianDonasiState extends State<BodyRincianDonasi> {
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: SizedBox(
                                 height: 33,
-                                child: TextField(
-                                  controller: _inputDonasi,
-                                  style: txtR12d,
-                                  decoration: InputDecoration(
-                                    hintText: "0",
-                                    hintStyle: txtR12l,
-                                    border: InputBorder.none,
-                                    prefixText: _currency + '.',
-                                    prefixStyle: txtR12l,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 0, bottom: 2),
+                                  child: TextField(
+                                    controller: _inputDonasi,
+                                    onChanged: (string) {
+                                      string = _formatNumber(
+                                          string.replaceAll(",", ""));
+                                      _inputDonasi.value = TextEditingValue(
+                                        text: string,
+                                        selection: TextSelection.collapsed(
+                                            offset: string.length),
+                                      );
+                                    },
+                                    style: txtR12d,
+                                    decoration: InputDecoration(
+                                      hintText: "0",
+                                      hintStyle: txtR12l,
+                                      border: InputBorder.none,
+                                      prefixIcon: Text(
+                                        _currency + ".",
+                                        style: txtR12l,
+                                      ),
+                                      prefixIconConstraints:
+                                          const BoxConstraints(
+                                              minWidth: 0, minHeight: 0),
+                                    ),
+                                    keyboardType: TextInputType.number,
                                   ),
-                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                             ),
