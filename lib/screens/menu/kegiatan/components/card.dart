@@ -80,8 +80,7 @@ class VirtualCard extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 6, bottom: 8, left: 8, right: 8),
+                  padding: const EdgeInsets.only(top: 6, bottom: 8),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: blueColor,

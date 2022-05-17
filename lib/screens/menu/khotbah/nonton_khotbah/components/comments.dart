@@ -55,7 +55,7 @@ class _CommentsState extends State<Comments> {
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
-                              height: MediaQuery.of(context).size.height / 1.8,
+                              height: MediaQuery.of(context).size.height * 0.55,
                               color: backgroundColor,
                               child: Center(
                                 child: Padding(

@@ -25,6 +25,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final sizeWidth = MediaQuery.of(context).size.width;
     return Background(
       child: CustomScrollView(
         slivers: [
@@ -252,7 +253,7 @@ class _BodyState extends State<Body> {
                                                               .spaceBetween,
                                                       children: [
                                                         SizedBox(
-                                                          width: 134,
+                                                          width: sizeWidth / 3,
                                                           height: 33,
                                                           child: OutlineButton(
                                                             shape:
@@ -278,7 +279,7 @@ class _BodyState extends State<Body> {
                                                         const SizedBox(
                                                             width: 12),
                                                         SizedBox(
-                                                          width: 134,
+                                                          width: sizeWidth / 3,
                                                           height: 33,
                                                           child: ElevatedButton(
                                                             style:
